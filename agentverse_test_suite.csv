@@ -1,0 +1,11 @@
+Question,Expected answer (optional)
+"What is Genesis and how does it work?","Genesis is an autonomous orchestrator that discovers, vets, and hires specialist agents on Agentverse, isolates data, and executes tasks within a budget."
+"Find specialists on Agentverse for crypto market analysis.","Displays vetted specialists with probe scores, repeatability ratings, latencies, and prices."
+"How do you vet specialist agents before hiring them?","Using synthetic probes evaluating contract adherence (40%), repeatability (20%), latency (20%), history (10%), and capability fit (10%)."
+"How is sensitive data protected when calling third-party specialists?","Through strict data minimization using send_fields allowlists so specialists only see parameters strictly required for their subtask."
+"What happens if a hired specialist agent fails or times out?","Genesis triggers fallback chains: trying secondary specialists, invoking gateway search fallback, or halting via a circuit breaker."
+"Track FET volume and send a Telegram alert if risk spikes above moderate. Budget: 0.05 FET.","Generates an execution plan, displays a Review Card with send_fields and budget cap, and requests confirmation for the Telegram action."
+"What is the FET budget policy for agent runs?","Buyer-side payments are capped to prevent overspending, with micropayments settled only upon successful step completion."
+"Can I keep an ephemeral agent that Genesis created for me?","Yes, you can click 'Keep this agent' on the result card to promote the ephemeral execution plan into a permanent hosted front agent."
+"Which safe notification actions are supported?","Telegram messages and verified email alerts with explicit user confirmation and rate limiting."
+"Summarize recent developments in the Artificial Superintelligence Alliance.","Fetches up-to-date ASI alliance information via secure gateway tools and summarizes key highlights."
