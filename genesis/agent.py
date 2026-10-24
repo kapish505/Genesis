@@ -165,13 +165,24 @@ class GenesisRuntime:
         self._relay = value
 
 
+def _ensure_event_loop() -> asyncio.AbstractEventLoop:
+    try:
+        return asyncio.get_event_loop()
+    except RuntimeError:
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        return loop
+
+
 def create_agent(settings: Settings, runtime: GenesisRuntime) -> tuple[Agent, Protocol]:
+    loop = _ensure_event_loop()
     agent_kwargs: dict[str, Any] = {
         "name": settings.agent_name,
         "mailbox": settings.agent_mailbox,
         "handle": settings.agent_handle or None,
         "publish_agent_details": True,
         "readme_path": "README.md",
+        "loop": loop,
     }
     if settings.agent_seed:
         agent_kwargs["seed"] = settings.agent_seed

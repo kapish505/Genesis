@@ -9,12 +9,25 @@ as Genesis reference agents deployed by the team. Genesis vets them using the ex
 and safety screens that it uses for organic third-party agents found on Agentverse.
 """
 
+import asyncio
 import json
 import logging
 from uagents import Agent, Context, Model
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("reference_specialists")
+
+
+def _ensure_event_loop() -> asyncio.AbstractEventLoop:
+    try:
+        return asyncio.get_event_loop()
+    except RuntimeError:
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        return loop
+
+
+_ensure_event_loop()
 
 
 class ChatMessage(Model):

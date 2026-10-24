@@ -59,11 +59,23 @@ class ChatMessage(Model):
 # Session tracking: run_id -> user sender address
 active_runs: dict[str, dict[str, Any]] = {}
 
+
+def _ensure_event_loop():
+    import asyncio
+    try:
+        return asyncio.get_event_loop()
+    except RuntimeError:
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        return loop
+
+
 front_agent = Agent(
     name=AGENT_NAME,
     seed=os.environ.get("AGENT_SEED", f"{AGENT_NAME}-seed-v2"),
     port=int(os.environ.get("AGENT_PORT", "8000")),
     endpoint=[os.environ.get("AGENT_ENDPOINT", "http://127.0.0.1:8000/submit")],
+    loop=_ensure_event_loop(),
 )
 
 
