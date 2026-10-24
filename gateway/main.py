@@ -23,6 +23,10 @@ from contextlib import asynccontextmanager
 from typing import Annotated, Any
 from urllib.parse import urljoin
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
 import httpx
 from fastapi import FastAPI, Header, HTTPException, Request
 from fastapi.responses import JSONResponse
