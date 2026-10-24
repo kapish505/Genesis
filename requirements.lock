@@ -1,0 +1,20 @@
+# Generated from the verified local Python 3.14 environment on 2026-10-15.
+# The project target remains Python 3.11; regenerate this file on the deployment image.
+aiosqlite==0.22.1
+fastapi==0.143.2
+httpx==0.28.1
+openai==1.109.1
+pydantic==2.14.1
+pydantic-settings==2.16.0
+pytest==8.4.2
+pytest-asyncio==0.26.0
+requests==2.34.2
+respx==0.23.1
+ruff==0.17.1
+tenacity==9.2.1
+uagents==0.26.1
+uagents-core==0.4.12
+uvicorn==0.54.0
+pypdf==5.9.0
+tavily-python==0.8.5
+trafilatura==1.12.2
