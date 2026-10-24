@@ -178,6 +178,7 @@ def create_agent(settings: Settings, runtime: GenesisRuntime) -> tuple[Agent, Pr
     loop = _ensure_event_loop()
     agent_kwargs: dict[str, Any] = {
         "name": settings.agent_name,
+        "port": settings.agent_port,
         "mailbox": settings.agent_mailbox,
         "handle": settings.agent_handle or None,
         "publish_agent_details": True,
