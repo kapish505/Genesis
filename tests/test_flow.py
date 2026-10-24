@@ -74,6 +74,7 @@ async def flow_env(tmp_path: Path):
     settings.probe_timeout_s = 2
     settings.sender_runs_per_hour = 100
     settings.sender_builds_per_day = 10
+    settings.builds_enabled = True
 
     sessions = SessionStore(settings)
     llm = MockLLM()

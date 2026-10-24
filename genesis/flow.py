@@ -50,6 +50,7 @@ from genesis.deployer import Deployer
 from genesis.detector import Detection, Detector
 from genesis.errors import DeploymentError, GenesisError, PlanningError
 from genesis.executor import Executor, RunResult
+from genesis.faq import answer_meta_question
 from genesis.ledger import Ledger
 from genesis.llm import AsiOneClient
 from genesis.payments import SellerPayments
@@ -309,6 +310,12 @@ class GenesisFlow:
         decision = screen(text)
         if not decision.allowed:
             reply.text(decision.reason).end()
+            return
+
+        meta_answer = answer_meta_question(text)
+        if meta_answer:
+            reply.text(meta_answer)
+            session.set_state("answered")
             return
         capability = classify_capability(text)
         if capability.capability:
