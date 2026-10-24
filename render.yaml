@@ -1,0 +1,49 @@
+services:
+  - type: web
+    name: genesis-gateway
+    env: python
+    region: oregon
+    plan: starter
+    buildCommand: "pip install -e '.[gateway]'"
+    startCommand: "uvicorn gateway.main:app --host 0.0.0.0 --port $PORT"
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: GENESIS_GATEWAY_SECRET
+        generateValue: true
+      - key: GENESIS_ASI1_API_KEY
+        sync: false
+      - key: GENESIS_TAVILY_API_KEY
+        sync: false
+
+  - type: worker
+    name: genesis-agent
+    env: python
+    region: oregon
+    plan: starter
+    buildCommand: "pip install -e '.[dev]'"
+    startCommand: "python -m genesis.agent"
+    disk:
+      name: genesis-data
+      mountPath: /data
+      sizeGB: 1
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: GENESIS_DATABASE_PATH
+        value: /data/genesis.db
+      - key: GENESIS_GATEWAY_URL
+        fromService:
+          type: web
+          name: genesis-gateway
+          property: host
+      - key: GENESIS_GATEWAY_SECRET
+        fromService:
+          type: web
+          name: genesis-gateway
+          envVarKey: GENESIS_GATEWAY_SECRET
+      - key: GENESIS_AGENTVERSE_API_KEY
+        sync: false
+      - key: GENESIS_ASI1_API_KEY
+        sync: false
